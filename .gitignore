@@ -1,0 +1,17 @@
+# Database and derived data are distributed via GitHub Releases, not git
+data/
+*.db
+*.db-wal
+*.db-shm
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/data/
+.venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
