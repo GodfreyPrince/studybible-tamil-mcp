@@ -8,7 +8,7 @@ import json
 import sqlite3
 import sys
 
-BOOK = sys.argv[1].upper()
+BOOK = sys.argv[1]  # canonical code as in DB: Gen, Exo, Lev, Num, Deu, 1Sa, 1Ki, Psa, Pro, Isa ...
 CH1, CH2 = int(sys.argv[2]), int(sys.argv[3])
 
 conn = sqlite3.connect(r"studybible-tamil/data/study_bible_tamil.db")
