@@ -7,3 +7,5 @@ Study API on port 8787 — db: C:\Users\Godfrey Prince\.zcode\workspace\default\
 [api] "GET /api/health HTTP/1.1" 200 -
 [api] "GET /api/verse?ref=Gen.1.1 HTTP/1.1" 200 -
 [api] "GET /api/verse?ref=Gen.1.1 HTTP/1.1" 200 -
+[api] "GET /api/verse?ref=Gen.1.3 HTTP/1.1" 200 -
+[api] "GET /api/verse?ref=Gen.1.26 HTTP/1.1" 200 -
