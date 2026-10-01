@@ -74,6 +74,17 @@ set STUDY_BIBLE_TAMIL_DB=C:\path\to\study_bible_tamil.db
 }
 ```
 
+## ஆய்வு API (Android செயலிக்காக)
+
+`server/study_api.py` — செயலியின் ஆய்வுத் தரவுகளுக்கான HTTP API (verse study, word study, search, offline pack):
+
+```bash
+py -3.11 server/study_api.py          # port 8787, key: server/study_key.txt
+py -3.11 server/build_study_pack.py   # offline pack (tamil_study_pack.zip) உருவாக்க
+```
+
+அணுகல்: `X-Study-Key` header அல்லது `?key=` — key இல்லாத கோரிக்கைகள் 401. ஒரு IP-க்கு வரம்பு: 120 req/min, pack 6/hour. `/api/health` திறந்தது. Cloudflare tunnel உதாரணம்: `~/.cloudflared/config-tamilbible.yml`.
+
 ## சோதனை
 
 ```bash

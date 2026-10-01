@@ -1,3 +1,6 @@
+# Server secrets
+server/study_key.txt
+
 # Database and derived data are distributed via GitHub Releases, not git
 data/
 *.db
