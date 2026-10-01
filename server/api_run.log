@@ -1,0 +1,9 @@
+Study API on port 8787 — db: C:\Users\Godfrey Prince\.zcode\workspace\default\studybible-tamil\data\study_bible_tamil.db
+  shared key: 2df82bc813e9460630c6216d8012205d   (file: study_key.txt — edit + restart to rotate)
+  phone URL (same Wi-Fi): http://10.85.205.83:8787
+  phone URL (same Wi-Fi): http://172.29.112.1:8787
+  emulator URL          : http://10.0.2.2:{PORT}
+[api] "GET /api/health HTTP/1.1" 200 -
+[api] "GET /api/health HTTP/1.1" 200 -
+[api] "GET /api/verse?ref=Gen.1.1 HTTP/1.1" 200 -
+[api] "GET /api/verse?ref=Gen.1.1 HTTP/1.1" 200 -

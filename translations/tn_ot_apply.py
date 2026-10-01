@@ -28,7 +28,7 @@ for f in glob.glob(str(WS / "tamil_build" / "tn_ot_*_source.json")):
 conn = sqlite3.connect(ROOT / "data" / "study_bible_tamil.db")
 cur = conn.cursor()
 
-inserted, skipped = 0, 0
+inserted, skipped, collisions = 0, 0, []
 for f in sorted(glob.glob(str(TRANS / "tn_ot_*.json"))):
     data = json.load(open(f, encoding="utf-8"))
     for aid, v in data.items():
@@ -39,6 +39,16 @@ for f in sorted(glob.glob(str(TRANS / "tn_ot_*.json"))):
             print("WARN no source ref for", aid, "in", f)
             continue
         book, ch, vs = refs[aid]
+        # ta_notes has UNIQUE(book, chapter, verse, phrase): an existing row
+        # (my earlier batch or Door43) wins; report for phrase adjustment
+        dup = cur.execute(
+            "SELECT 1 FROM ta_notes WHERE book=? AND chapter=? AND verse=? AND phrase=?",
+            (book, ch, vs, v["phrase"]),
+        ).fetchone()
+        if dup:
+            collisions.append((aid, f"{book} {ch}:{vs}", v["phrase"]))
+            applied.add(aid)  # don't retry forever
+            continue
         cur.execute(
             "INSERT INTO ta_notes (book, chapter, verse, phrase, body) VALUES (?, ?, ?, ?, ?)",
             (book, ch, vs, v["phrase"], v["body"]),
@@ -49,4 +59,6 @@ for f in sorted(glob.glob(str(TRANS / "tn_ot_*.json"))):
 conn.commit()
 conn.close()
 json.dump(sorted(applied, key=int), open(LEDGER, "w", encoding="utf-8"))
-print(f"OT notes applied: {inserted} inserted, {skipped} already done; ledger {len(applied)} ids")
+print(f"OT notes applied: {inserted} inserted, {skipped} already done, {len(collisions)} phrase-collisions skipped; ledger {len(applied)} ids")
+for c in collisions:
+    print("  collision:", c)
